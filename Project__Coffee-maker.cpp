@@ -58,8 +58,7 @@ void printMainMenu(double byn)
 double putMoney()
 {
 	double byn = 0.0;
-	
-	cout << "Our new coffee machine, welcome!";
+		
 	cout << "Please, deposit money" << endl << "Minimal note is 1 BYN" << endl;
 	cout << "Pay attention that the coffee machine doesn't give change" << endl;
 	cin  >> byn;
@@ -69,7 +68,6 @@ double putMoney()
 
 bool checkPin()
 {
-	
-	return 0;
+
 }
 
