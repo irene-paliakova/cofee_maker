@@ -1,11 +1,15 @@
 #include <iostream>
 
 #define PIN 6666
+#define COST_ESPRESSO 1
+#define COST_CAPPUCCHINO 1.5
+#define COST_LATTE 1.5
 
 using namespace std;
 
 void printMainMenu(double);
 double putMoney();
+double buyCoffee(double coffeeCost, double currentBalance);
 bool checkPin();
 void serviceMenu();
 
@@ -25,13 +29,13 @@ int main()
 			byn = putMoney();
 		}
 		else if (choiceUser == 2) {
-			
+			byn = buyCoffee(COST_ESPRESSO, byn);
 		}
 		else if (choiceUser == 3) {
-			
+			byn = buyCoffee(COST_CAPPUCCHINO, byn);
 		}
 		else if (choiceUser == 4) {
-			
+			byn = buyCoffee(COST_LATTE, byn);
 		}
 		else if (choiceUser == 5) {
 			if (checkPin()) {
@@ -66,8 +70,17 @@ double putMoney()
 	return byn;
 }
 
+double buyCoffee(double coffeeCost, double currentBalance) {
+	currentBalance -= coffeeCost;
+	return currentBalance;
+}
+
 bool checkPin()
 {
 
+}
+
+void serviceMenu() {
+	
 }
 
