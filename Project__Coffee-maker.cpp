@@ -1,8 +1,9 @@
 #include <iostream>
+#include <Windows.h>
 
 #define PIN 6666
 #define COST_ESPRESSO 1
-#define COST_CAPPUCCHINO 1.5
+#define COST_CAPPUCCINO 1.5
 #define COST_LATTE 1.5
 
 using namespace std;
@@ -10,11 +11,13 @@ using namespace std;
 void printMainMenu(double);
 double putMoney();
 void buyCoffee(double coffeeCost);
+void progressBar();
 bool checkPin();
 void serviceMenu();
 
 int cup = 7;
 double byn = 0.0;
+
 
 int main()
 {
@@ -34,7 +37,7 @@ int main()
 			buyCoffee(COST_ESPRESSO);
 		}
 		else if (choiceUser == 3) {
-			buyCoffee(COST_CAPPUCCHINO);
+			buyCoffee(COST_CAPPUCCINO);
 		}
 		else if (choiceUser == 4) {
 			buyCoffee(COST_LATTE);
@@ -75,6 +78,18 @@ double putMoney()
 void buyCoffee(double coffeeCost) {
 	byn -= coffeeCost;
 	cup--;
+	progressBar();
+	cout << "Please take your coffee" << endl;
+}
+
+void progressBar() {
+	cout << "Please Wait, we are cooking the best coffee for your";
+	for (int i = 1; i <= 10; i++)
+    {
+        Sleep(1000);
+        cout << "." << std::flush;
+    }
+    cout << endl;
 }
 
 bool checkPin()
