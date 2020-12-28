@@ -9,15 +9,17 @@ using namespace std;
 
 void printMainMenu(double);
 double putMoney();
-double buyCoffee(double coffeeCost, double currentBalance);
+void buyCoffee(double coffeeCost);
 bool checkPin();
 void serviceMenu();
 
+int cup = 7;
+double byn = 0.0;
+
 int main()
 {
-	int choiceUser = 0, cup = 7;
-	double byn = 0.0;
-			
+	int choiceUser = 0;
+				
 	cout << "CoffeeShop" << endl << endl;
 	while (true) {		
 		printMainMenu(byn);
@@ -29,13 +31,13 @@ int main()
 			byn = putMoney();
 		}
 		else if (choiceUser == 2) {
-			byn = buyCoffee(COST_ESPRESSO, byn);
+			buyCoffee(COST_ESPRESSO);
 		}
 		else if (choiceUser == 3) {
-			byn = buyCoffee(COST_CAPPUCCHINO, byn);
+			buyCoffee(COST_CAPPUCCHINO);
 		}
 		else if (choiceUser == 4) {
-			byn = buyCoffee(COST_LATTE, byn);
+			buyCoffee(COST_LATTE);
 		}
 		else if (choiceUser == 5) {
 			if (checkPin()) {
@@ -70,9 +72,9 @@ double putMoney()
 	return byn;
 }
 
-double buyCoffee(double coffeeCost, double currentBalance) {
-	currentBalance -= coffeeCost;
-	return currentBalance;
+void buyCoffee(double coffeeCost) {
+	byn -= coffeeCost;
+	cup--;
 }
 
 bool checkPin()
