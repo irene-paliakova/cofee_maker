@@ -1,5 +1,6 @@
 #include <iostream>
 #include <Windows.h>
+#include <cstdlib>
 
 #define PIN 6666
 #define COST_ESPRESSO 1
