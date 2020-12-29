@@ -17,6 +17,7 @@ int inputChoiceUser(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &byn, int &cup);
 void printServiceMenu(double byn,int cup);
+int inputChoiceService();
 
 int cup = 7;
 double byn = 0.0;
@@ -158,4 +159,13 @@ void printServiceMenu(double byn, int cup) {
 		cout << "1. Add cups" << endl;
 		cout << "2. Withdrawal of proceeds" << endl;
 		cout << "3. Back to Main Menu" << endl << endl;	
+}
+
+int inputChoiceService() {
+	int choiceService = 0;
+		
+	cout << "Please, make your choice and press the button ENTER: ";
+	cin  >> choiceService;
+	
+	return choiceService;
 }
