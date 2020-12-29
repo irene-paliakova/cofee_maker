@@ -16,6 +16,7 @@ bool isCheckingPin(int pin);
 int inputChoiceUser(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &byn, int &cup);
+void printServiceMenu(double byn,int cup);
 
 int cup = 7;
 double byn = 0.0;
@@ -147,4 +148,14 @@ void manageServiceMenu(double &byn, int &cup) {
 		else if (choiceService == 3)
 			break;
 	}	
+}
+
+void printServiceMenu(double byn, int cup) {
+		cout << "Welcome to the service menu" << endl;
+		cout << "Balance: " << byn << endl;
+		cout << "There are '" << cup << "' cups loaded" << endl;
+		cout << "Please, choose the option:" << endl;
+		cout << "1. Add cups" << endl;
+		cout << "2. Withdrawal of proceeds" << endl;
+		cout << "3. Back to Main Menu" << endl << endl;	
 }
