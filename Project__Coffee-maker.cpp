@@ -15,7 +15,7 @@ void progressBar();
 bool isCheckingPin(int pin);
 int inputChoiceUser(int attemptPin);
 void blockProgram();
-void serviceMenu();
+void manageServiceMenu(double &byn, int &cup);
 
 int cup = 7;
 double byn = 0.0;
@@ -46,7 +46,7 @@ int main()
 		}
 		else if (choiceUser == 5) {
 			if (isCheckingPin(pin)) {
-				serviceMenu();
+				manageServiceMenu(byn, cup);
 			}
 		}
 				
@@ -127,7 +127,24 @@ void blockProgram() {
 	exit(-1);	
 }
 
-void serviceMenu() {
+void manageServiceMenu(double &byn, int &cup) {			
+	int addCup = 0;
 	
+	cout << "Service Menu" << endl;
+	while (true) {
+		printServiceMenu(byn, cup);
+		int choiceService = inputChoiceService();
+		if (choiceService == 1) {
+			cout << "How many cups are you adding?" << endl;
+			cin  >> addCup;
+			
+			cup += addCup;			
+		}
+		else if (choiceService == 2) {
+			cout << byn << " BYN were given away";
+			byn = 0.0;			
+		}
+		else if (choiceService == 3)
+			break;
+	}	
 }
-
