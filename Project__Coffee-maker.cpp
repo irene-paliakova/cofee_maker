@@ -13,7 +13,7 @@ void printMainMenu(double);
 double putMoney();
 void buyCoffee(double coffeeCost);
 void progressBar();
-bool isCheckingPin(int pin);
+bool isCheckingPin();
 int inputChoiceUser(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &byn, int &cup);
@@ -26,7 +26,7 @@ double byn = 0.0;
 
 int main()
 {
-	int choiceUser = 0, pin = 0;
+	int choiceUser = 0;
 				
 	cout << "CoffeeShop" << endl << endl;
 	while (true) {		
@@ -48,7 +48,7 @@ int main()
 			buyCoffee(COST_LATTE);
 		}
 		else if (choiceUser == 5) {
-			if (isCheckingPin(pin)) {
+			if (isCheckingPin()) {
 				manageServiceMenu(byn, cup);
 			}
 		}
@@ -97,12 +97,12 @@ void progressBar() {
     cout << endl;
 }
 
-bool isCheckingPin(int pin) {
+bool isCheckingPin() {
 	int attemptPin = 3;
 	
 	while (attemptPin > 0) {
 		cout << "1. Back to Main Menu" << endl;
-		pin = inputChoiceUser(attemptPin);
+		int pin = inputChoiceUser(attemptPin);
 		// check input value??
 		if (pin == 1)
 			return false;
