@@ -13,6 +13,7 @@ double putMoney();
 void buyCoffee(double coffeeCost);
 void progressBar();
 bool isCheckingPin(int pin);
+int inputChoiceUser(int attemptPin);
 void serviceMenu();
 
 int cup = 7;
@@ -109,6 +110,15 @@ bool isCheckingPin(int pin) {
 		if (attemptPin == 0)
 			blockProgram();
 	}	
+}
+
+int inputChoiceUser(int attemptPin) {
+	int pin = 0;
+		
+	cout << "Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
+	cin  >> pin;
+	
+	return pin;
 }
 
 void serviceMenu() {
