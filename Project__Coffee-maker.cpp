@@ -14,6 +14,7 @@ void buyCoffee(double coffeeCost);
 void progressBar();
 bool isCheckingPin(int pin);
 int inputChoiceUser(int attemptPin);
+void blockProgram();
 void serviceMenu();
 
 int cup = 7;
@@ -119,6 +120,11 @@ int inputChoiceUser(int attemptPin) {
 	cin  >> pin;
 	
 	return pin;
+}
+
+void blockProgram() {
+	cout << "The machine is blocked";
+	exit(-1);	
 }
 
 void serviceMenu() {
