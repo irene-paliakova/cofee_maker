@@ -1,6 +1,9 @@
 #include <iostream>
 #include <Windows.h>
 #include <cstdlib>
+#include <stdlib.h>
+#include <conio.h>
+#include <string>
 
 #define PIN 6666
 #define COST_ESPRESSO 1
@@ -139,9 +142,10 @@ bool isCheckingPin() {
 		
 		int pin = inputChoiceUser(attemptPin);
 		// check input value??
-		if (pin == 1)
-			return false;
-		else if (pin == PIN)
+		//if (pin == 1)
+		//	return false;
+		//else 
+		if (pin == PIN)
 			return true;
 		else
 			cout << "PIN is wrong!" << endl;			
@@ -152,13 +156,29 @@ bool isCheckingPin() {
 }
 
 int inputChoiceUser(int attemptPin) {
-	int pin = 0;
+	int pin = 0, choice = 0;
+	string pass = "";
+	int ch = 0;
 	
 	system("cls");
 	printLogo();
-	cout << "1. Back to Main Menu" << endl;	
-	cout << "Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
-	cin  >> pin;
+	cout << "1. Back to Main Menu" << endl;
+	cout << "2. Enter a PIN-code" << endl;
+	cout << "Please, make your choice and press the button ENTER: ";
+	cin >> 	choice;
+	switch (choice) {
+		case 1: return false;
+		case 2: 
+			cout << "Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
+			for (int i = 0; i < 4; i++) {
+				ch = _getch();
+				cout << "*";
+				pass = pass + (char)ch;
+			}
+			break;
+		default: inputChoiceUser(attemptPin);
+	}
+	pin = atoi(pass.c_str());
 	
 	return pin;
 }
@@ -196,11 +216,11 @@ void printServiceMenu() {
 	system("cls");
 	printLogo();
 	cout << "Welcome to the service menu" << endl;
-	cout << "Balance: " << machineBalance << endl;
-	cout << "There are '" << cup << "' cups loaded" << endl;
+	cout << "Total balance: " << machineBalance << endl;
+	cout << "Cups remaining: " << cup << endl;
 	cout << "Please, choose the option:" << endl;
 	cout << "1. Add cups" << endl;
-	cout << "2. Withdrawal of proceeds" << endl;
+	cout << "2. Withdraw proceeds" << endl;
 	cout << "3. Back to Main Menu" << endl << endl;	
 }
 
