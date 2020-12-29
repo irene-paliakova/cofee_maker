@@ -10,12 +10,18 @@
 #define COST_CAPPUCCINO 1.5
 #define COST_LATTE 1.5
 
+#define WELCOME_MESSAGE "Try the best coffee"
+#define ADD_MONEY_MESSAGE "Please deposit more money"
+#define TAKE_COFFEE_MESSAGE "Please take your coffee"
+
 using namespace std;
 
 void printLogo();
 void printMainMenu();
 void putMoney();
-void buyCoffee(double coffeeCost);
+bool isEnoughMoney(double coffeeCost);
+void printUserMessage(string message);
+void buyCoffee(double coffeeCost, string &message);
 void progressBar();
 bool isCheckingPin();
 int inputChoiceUser(int attemptPin);
@@ -32,23 +38,34 @@ double machineBalance = 0.0;
 int main()
 {
 	int choiceUser = 0;
+	string message = WELCOME_MESSAGE;
 				
 	while (true) {		
+		printLogo();
+		printUserMessage(message);
 		printMainMenu();
 		cin  >> choiceUser;
 		
 		// check input value??
 		if (choiceUser == 1) {
+			printLogo();
+			message = WELCOME_MESSAGE;
 			putMoney();
 		}
 		else if (choiceUser == 2) {
-			buyCoffee(COST_ESPRESSO);
+			if (isEnoughMoney(COST_ESPRESSO))
+				buyCoffee(COST_ESPRESSO, message);
+			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 3) {
-			buyCoffee(COST_CAPPUCCINO);
+			if (isEnoughMoney(COST_CAPPUCCINO))
+				buyCoffee(COST_CAPPUCCINO, message);
+			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 4) {
-			buyCoffee(COST_LATTE);
+			if (isEnoughMoney(COST_LATTE))
+				buyCoffee(COST_LATTE, message);
+			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 5) {
 			if (isCheckingPin()) {
@@ -62,13 +79,16 @@ int main()
 }
 
 void printLogo() {
+	system("cls");
 	cout << "CoffeeShop" << endl << endl;
+}
+
+void printUserMessage(string message) {
+	cout << message << endl << endl;
 }
 
 void printMainMenu()
 {	
-	system("cls");
-	printLogo();
 	cout << "Balance: " << customerBalance << endl;
 	cout << "1. Deposit money" << endl;
 	cout << "2. Espresso       1.0 BYN" << endl;
@@ -78,27 +98,28 @@ void printMainMenu()
 	cout << "Please, make your choice and press the button ENTER: ";
 }
 
+void printDepositMenu() {
+	cout << "Balance: " << customerBalance << endl;
+	cout << "1. 10 coins" << endl;
+	cout << "2. 20 coins" << endl;
+	cout << "3. 50 coins" << endl;
+	cout << "4. 1 ruble" << endl;
+	cout << "5. 2 rubles" << endl;
+	cout << "6. Back to main menu" << endl << endl;
+	cout << "Please, make your choice and press the button ENTER: ";
+}
+
 void putMoney()
 {
 	double byn = 0.0;
 	int choiceUser = 0;
 	
-	system("cls");
-	printLogo();
 	cout << "Pay attention that the coffee machine doesn't give change" << endl;	
 	cout << "Please, deposit money:" << endl;
 	
 	while (choiceUser != 6) {
-		system("cls");
 		printLogo();
-		cout << "Balance: " << customerBalance << endl;
-		cout << "1. 10 coins" << endl;
-		cout << "2. 20 coins" << endl;
-		cout << "3. 50 coins" << endl;
-		cout << "4. 1 ruble" << endl;
-		cout << "5. 2 rubles" << endl;
-		cout << "6. Back to main menu" << endl << endl;
-		cout << "Please, make your choice and press the button ENTER: ";
+		printDepositMenu();
 		cin>>choiceUser;
 		switch (choiceUser) {
 			case 1: byn = 0.1; break;
@@ -113,16 +134,20 @@ void putMoney()
 		}
 		customerBalance += byn;
 		machineBalance += byn;
-	}
-	
-	
+	}	
 }
 
-void buyCoffee(double coffeeCost) {
+bool isEnoughMoney(double coffeeCost) {
+	if (coffeeCost > customerBalance) 
+		return false;
+	else return true;
+}
+
+void buyCoffee(double coffeeCost, string &message) {
 	customerBalance -= coffeeCost;
 	cup--;
 	progressBar();
-	cout << "Please take your coffee" << endl;
+	message = TAKE_COFFEE_MESSAGE;
 }
 
 void progressBar() {
@@ -130,7 +155,7 @@ void progressBar() {
 	for (int i = 1; i <= 10; i++)
     {
         Sleep(1000);
-        cout << "." << std::flush;
+        cout << "." << flush;
     }
     cout << endl;
 }
@@ -175,6 +200,8 @@ int inputChoiceUser(int attemptPin) {
 				cout << "*";
 				pass = pass + (char)ch;
 			}
+			cout << endl;
+			system("pause");
 			break;
 		default: inputChoiceUser(attemptPin);
 	}
