@@ -49,6 +49,7 @@ int main()
 		// check input value??
 		if (choiceUser == 1) {
 			printLogo();
+			printUserMessage(message);
 			message = WELCOME_MESSAGE;
 			putMoney();
 		}
@@ -118,7 +119,9 @@ void putMoney()
 	cout << "Please, deposit money:" << endl;
 	
 	while (choiceUser != 6) {
+		string message = "Pay attention that the coffee machine doesn't give change";
 		printLogo();
+		printUserMessage(message);
 		printDepositMenu();
 		cin>>choiceUser;
 		switch (choiceUser) {
