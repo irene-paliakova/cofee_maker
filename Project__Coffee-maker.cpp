@@ -41,6 +41,7 @@ int main()
 	while (true) {		
 		printLogo();
 		printUserMessage(message);
+		message = WELCOME_MESSAGE;
 		printMainMenu(customerBalance);
 		cin >> choiceUser;
 		
@@ -150,7 +151,7 @@ void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &mes
 }
 
 void progressBar() {
-	cout << "Please Wait, we are cooking the best coffee for your";
+	cout << "Please wait, we are cooking the best coffee for your";
 	for (int i = 1; i <= 10; i++)
     {
         Sleep(1000);
