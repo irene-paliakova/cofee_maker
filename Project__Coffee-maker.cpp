@@ -30,11 +30,11 @@ int inputChoiceUser(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup);
 void printServiceMenu(double machineBalance, int cup);
-int inputChoiceService();
+int inputNumber();
 
 int main()
 {
-	int choiceUser = 0, cup = 7;
+	int cup = 7;
 	double customerBalance = 0.0, machineBalance = 0.0;
 	string message = WELCOME_MESSAGE;
 				
@@ -43,7 +43,7 @@ int main()
 		printUserMessage(message);
 		message = WELCOME_MESSAGE;
 		printMainMenu(customerBalance);
-		cin >> choiceUser;
+		int choiceUser = inputNumber();
 		
 		if (choiceUser == 1) {
 			putMoney(customerBalance, machineBalance);
@@ -111,7 +111,7 @@ void putMoney(double &customerBalance, double &machineBalance) {
 		printLogo();
 		printUserMessage(message);
 		printDepositMenu(customerBalance);
-		cin >> choiceUser;
+		choiceUser = inputNumber();
 		
 		switch (choiceUser) {
 			case 1: byn = 0.1; break;
@@ -181,7 +181,7 @@ bool isCheckingPin() {
 }
 
 int inputChoiceUser(int attemptPin) {
-	int pin = 0, choice = 0;
+	int pin = 0;
 	string pass = "";
 	int ch = 0;
 	
@@ -190,7 +190,8 @@ int inputChoiceUser(int attemptPin) {
 	cout << "1. Back to Main Menu" << endl;
 	cout << "2. Enter a PIN-code" << endl;
 	cout << "Please, make your choice and press the button ENTER: ";
-	cin >> 	choice;
+	int choice = inputNumber();
+	
 	switch (choice) {
 		case 1: return false;
 		case 2: 
@@ -216,15 +217,13 @@ void blockProgram() {
 }
 
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup) {			
-	int addCup = 0;
-	
 	cout << "Service Menu" << endl;
 	while (true) {
 		printServiceMenu(machineBalance, cup);
-		int choiceService = inputChoiceService();
+		int choiceService = inputNumber();
 		if (choiceService == 1) {
 			cout << "How many cups are you adding?" << endl;
-			cin  >> addCup;
+			int addCup = inputNumber();
 			
 			cup += addCup;			
 		}
@@ -251,11 +250,10 @@ void printServiceMenu(double machineBalance, int cup) {
 	cout << "3. Back to Main Menu" << endl << endl;	
 }
 
-int inputChoiceService() {
-	int choiceService = 0;
-		
-	cout << "Please, make your choice and press the button ENTER: ";
-	cin  >> choiceService;
+int inputNumber() {
+	int number = 0;		
 	
-	return choiceService;
+	cin >> number;
+	
+	return number;
 }
