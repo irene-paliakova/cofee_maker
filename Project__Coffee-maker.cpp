@@ -17,65 +17,57 @@
 using namespace std;
 
 void printLogo();
-void printMainMenu();
-void putMoney();
-bool isEnoughMoney(double coffeeCost);
+void printMainMenu(double customerBalance);
+void putMoney(double &customerBalance, double &machineBalance);
+void balanceCustomer(double &customerBalance, double byn);
+void balanceMachine(double &machineBalance, double byn);
+bool isEnoughMoney(double coffeeCost, double customerBalance);
 void printUserMessage(string message);
-void buyCoffee(double coffeeCost, string &message);
+void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &message);
 void progressBar();
 bool isCheckingPin();
 int inputChoiceUser(int attemptPin);
 void blockProgram();
-void manageServiceMenu();
-void printServiceMenu();
+void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup);
+void printServiceMenu(double machineBalance, int cup);
 int inputChoiceService();
-
-int cup = 7;
-double customerBalance = 0.0;
-double machineBalance = 0.0;
-
 
 int main()
 {
-	int choiceUser = 0;
+	int choiceUser = 0, cup = 7;
+	double customerBalance = 0.0, machineBalance = 0.0;
 	string message = WELCOME_MESSAGE;
 				
 	while (true) {		
 		printLogo();
 		printUserMessage(message);
-		printMainMenu();
-		cin  >> choiceUser;
+		printMainMenu(customerBalance);
+		cin >> choiceUser;
 		
-		// check input value??
 		if (choiceUser == 1) {
-			printLogo();
-			printUserMessage(message);
-			message = WELCOME_MESSAGE;
-			putMoney();
+			putMoney(customerBalance, machineBalance);
 		}
 		else if (choiceUser == 2) {
-			if (isEnoughMoney(COST_ESPRESSO))
-				buyCoffee(COST_ESPRESSO, message);
+			if (isEnoughMoney(COST_ESPRESSO, customerBalance))
+				buyCoffee(customerBalance, COST_ESPRESSO, cup, message);
 			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 3) {
-			if (isEnoughMoney(COST_CAPPUCCINO))
-				buyCoffee(COST_CAPPUCCINO, message);
+			if (isEnoughMoney(COST_CAPPUCCINO, customerBalance))
+				buyCoffee(customerBalance, COST_CAPPUCCINO, cup, message);
 			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 4) {
-			if (isEnoughMoney(COST_LATTE))
-				buyCoffee(COST_LATTE, message);
+			if (isEnoughMoney(COST_LATTE, customerBalance))
+				buyCoffee(customerBalance, COST_LATTE, cup, message);
 			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 5) {
 			if (isCheckingPin()) {
-				manageServiceMenu();
+				manageServiceMenu(customerBalance, machineBalance, cup);
 			}
-		}
-				
-	}  
-			
+		}				
+	}  			
 	return 0;
 }
 
@@ -88,8 +80,7 @@ void printUserMessage(string message) {
 	cout << message << endl << endl;
 }
 
-void printMainMenu()
-{	
+void printMainMenu(double customerBalance) {	
 	cout << "Balance: " << customerBalance << endl;
 	cout << "1. Deposit money" << endl;
 	cout << "2. Espresso       1.0 BYN" << endl;
@@ -99,7 +90,7 @@ void printMainMenu()
 	cout << "Please, make your choice and press the button ENTER: ";
 }
 
-void printDepositMenu() {
+void printDepositMenu(double customerBalance) {
 	cout << "Balance: " << customerBalance << endl;
 	cout << "1. 10 coins" << endl;
 	cout << "2. 20 coins" << endl;
@@ -110,43 +101,48 @@ void printDepositMenu() {
 	cout << "Please, make your choice and press the button ENTER: ";
 }
 
-void putMoney()
-{
+void putMoney(double &customerBalance, double &machineBalance) {
 	double byn = 0.0;
 	int choiceUser = 0;
-	
-	cout << "Pay attention that the coffee machine doesn't give change" << endl;	
-	cout << "Please, deposit money:" << endl;
 	
 	while (choiceUser != 6) {
 		string message = "Pay attention that the coffee machine doesn't give change";
 		printLogo();
 		printUserMessage(message);
-		printDepositMenu();
-		cin>>choiceUser;
+		printDepositMenu(customerBalance);
+		cin >> choiceUser;
+		
 		switch (choiceUser) {
 			case 1: byn = 0.1; break;
 			case 2: byn = 0.2; break;
 			case 3: byn = 0.5; break;
 			case 4: byn = 1; break;
 			case 5: byn = 2; break;
-			case 6: printMainMenu();
+			case 6: printMainMenu(customerBalance);
 					byn = 0.0;
 					break;
 			default: byn = 0; break;
 		}
-		customerBalance += byn;
-		machineBalance += byn;
+		balanceCustomer(customerBalance, byn);
+		balanceMachine(machineBalance, byn);
 	}	
 }
 
-bool isEnoughMoney(double coffeeCost) {
+void balanceCustomer(double &customerBalance, double byn) {
+	customerBalance += byn;
+}
+
+void balanceMachine(double &machineBalance, double byn) {
+	machineBalance += byn;
+}
+
+bool isEnoughMoney(double coffeeCost, double customerBalance) {
 	if (coffeeCost > customerBalance) 
 		return false;
 	else return true;
 }
 
-void buyCoffee(double coffeeCost, string &message) {
+void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &message) {
 	customerBalance -= coffeeCost;
 	cup--;
 	progressBar();
@@ -218,12 +214,12 @@ void blockProgram() {
 	exit(-1);	
 }
 
-void manageServiceMenu() {			
+void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup) {			
 	int addCup = 0;
 	
 	cout << "Service Menu" << endl;
 	while (true) {
-		printServiceMenu();
+		printServiceMenu(machineBalance, cup);
 		int choiceService = inputChoiceService();
 		if (choiceService == 1) {
 			cout << "How many cups are you adding?" << endl;
@@ -242,7 +238,7 @@ void manageServiceMenu() {
 	}	
 }
 
-void printServiceMenu() {
+void printServiceMenu(double machineBalance, int cup) {
 	system("cls");
 	printLogo();
 	cout << "Welcome to the service menu" << endl;
