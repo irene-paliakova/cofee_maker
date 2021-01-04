@@ -174,7 +174,6 @@ void progressBar() {
 
 bool isCheckingPin() {
 	int attemptPin = 3;
-	system("cls");
 	printLogo();
 	cout << "1. Back to Main Menu" << endl;
 	cout << "2. Enter a PIN-code" << endl;
@@ -224,7 +223,8 @@ int inputChoiceUser(int attemptPin) {
 }
 
 void blockProgram() {
-	cout << "The machine is blocked";
+	cout << "The machine is blocked" << endl;;
+	system("pause");
 	exit(-1);	
 }
 
@@ -251,7 +251,6 @@ void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup
 }
 
 void printServiceMenu(double machineBalance, int cup) {
-	system("cls");
 	printLogo();
 	cout << "Welcome to the service menu" << endl;
 	cout << "Total balance: " << machineBalance << " BYN" << endl;
