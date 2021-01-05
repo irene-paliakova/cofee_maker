@@ -1,7 +1,6 @@
 #include <iostream>
 #include <Windows.h>
 #include <cstdlib>
-#include <stdlib.h>
 #include <conio.h>
 #include <string>
 
@@ -34,6 +33,9 @@ int  inputPin(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup);
 void printServiceMenu(double machineBalance, int cup);
+void extraCup(int &cup);
+int  checkExtraCup();
+void nullingBalance(double &machineBalance, double &customerBalance);
 int  inputNumber();
 
 int main()
@@ -90,10 +92,11 @@ void printLogo() {
 }
 
 void printUserMessage(string message) {
-	cout << message << endl << endl;
+	cout << message << endl;
 }
 
-void printMainMenu(double customerBalance) {	
+void printMainMenu(double customerBalance) {
+	cout << endl;	
 	cout << "Balance: " << customerBalance << " BYN" <<endl;
 	cout << "1. Deposit money" << endl;
 	cout << "2. Espresso       1.0 BYN" << endl;
@@ -104,12 +107,14 @@ void printMainMenu(double customerBalance) {
 }
 
 void printShortMainMenu(double customerBalance) {	
+	cout << endl;
 	cout << "Balance: " << customerBalance << " BYN" << endl;
 	cout << "5. Service" << endl << endl;
 	cout << "Please, make your choice and press the button ENTER: ";
 }
 
 void printDepositMenu(double customerBalance) {
+	cout << endl;
 	cout << "Balance: " << customerBalance << " BYN" << endl;
 	cout << "1. 10 coins" << endl;
 	cout << "2. 20 coins" << endl;
@@ -166,10 +171,10 @@ void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &mes
 }
 
 void progressBar() {
-	cout << "Please wait, we are cooking the best coffee for your";
-	for (int i = 1; i <= 5; i++)
+	cout << endl << "Please wait, we are cooking the best coffee for your";
+	for (int i = 0; i <= 7; i++)
     {
-        Sleep(1000);
+        Sleep(777);
         cout << "." << flush;
     }
     cout << endl;
@@ -215,14 +220,14 @@ int inputPin(int attemptPin) {
 	int pin = 0, ch = 0;
 	string pass = "";
 	
-	cout << "Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
+	cout << endl << "Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
 	for (int i = 0; i < 4; i++) {
 		ch = _getch();
 		cout << "*";
 		pass = pass + (char)ch;
 	}
 	cout << endl;
-	system("pause");
+	Sleep(300);
 		
 	pin = atoi(pass.c_str());
 	
@@ -230,39 +235,62 @@ int inputPin(int attemptPin) {
 }
 
 void blockProgram() {
-	cout << "The machine is blocked" << endl;;
-	system("pause");
+	cout << endl << "The machine is blocked" << endl;;
+	Sleep(300);
 	exit(-1);	
 }
 
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup) {			
-	cout << "Service Menu" << endl;
-	while (true) {
-		printServiceMenu(machineBalance, cup);
+	while (true) {		
+		printServiceMenu(machineBalance, cup);		
 		int choiceService = inputNumber();
+		
 		if (choiceService == 1) {
-			cout << "How many cups are you adding?" << endl;
-			int addCup = inputNumber();
-			
-			cup += addCup;			
+			cout << endl;
+			printUserMessage("How many cups are you adding?");						
+			extraCup(cup);					
 		}
 		else if (choiceService == 2) {
-			cout << machineBalance << " BYN were given away";
-			machineBalance = 0.0;
-			customerBalance = 0.0;
-						
+			cout << endl << machineBalance;
+			printUserMessage(" BYN were given away");
+			cout << endl;
+			Sleep(4000);			
+			nullingBalance(machineBalance, customerBalance);						
 		}
 		else if (choiceService == 3)
 			break;
 	}	
 }
 
+void extraCup(int &cup) {
+	int extraCup = checkExtraCup();
+	cup += extraCup;
+}
+
+int checkExtraCup() {
+	int extraCup = 0;
+	
+	while (true) {
+        extraCup = inputNumber();
+		if (extraCup < 1) {
+			cout << "Invalid data! Please correct number of cups and try again" << endl;
+		    printUserMessage("How many cups are you adding?");
+		} else break;		
+	}
+	
+	return extraCup;	
+}
+
+void nullingBalance(double &machineBalance, double &customerBalance) {
+	machineBalance = 0.0;
+	customerBalance = 0.0;
+}
+
 void printServiceMenu(double machineBalance, int cup) {
-	printLogo();
-	cout << "Welcome to the service menu" << endl;
+    printLogo();
+	cout << "Welcome to the service menu" << endl << endl;
 	cout << "Total balance: " << machineBalance << " BYN" << endl;
-	cout << "Cups remaining: " << cup << endl;
-	cout << "Please, choose the option:" << endl;
+	cout << "Cups remaining: " << cup << endl << endl;	
 	cout << "1. Add cups" << endl;
 	cout << "2. Withdraw proceeds" << endl;
 	cout << "3. Back to Main Menu" << endl << endl;	
