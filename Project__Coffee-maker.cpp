@@ -20,18 +20,21 @@ using namespace std;
 void printLogo();
 void printMainMenu(double customerBalance);
 void printShortMainMenu(double customerBalance);
+void printDepositMenu(double customerBalance);
 void putMoney(double &customerBalance, double &machineBalance);
 void changeBalance(double &customerBalance, double &machineBalance, double byn);
 bool isEnoughMoney(double coffeeCost, double customerBalance);
 void printUserMessage(string message);
 void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &message);
 void progressBar();
-bool isCheckingPin();
-int inputChoiceUser(int attemptPin);
+void isCheckingPin();
+void printTemporaryPinMenu();
+bool isTemporaryPinChoice();
+int  inputPin(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup);
 void printServiceMenu(double machineBalance, int cup);
-int inputNumber();
+int  inputNumber();
 
 int main()
 {
@@ -73,7 +76,7 @@ int main()
 			else message = ADD_MONEY_MESSAGE;
 		}
 		else if (choiceUser == 5) {
-			if (isCheckingPin()) {
+			if (isTemporaryPinChoice()) {
 				manageServiceMenu(customerBalance, machineBalance, cup);
 			}
 		}				
@@ -131,12 +134,12 @@ void putMoney(double &customerBalance, double &machineBalance) {
 			case 1: byn = 0.1; break;
 			case 2: byn = 0.2; break;
 			case 3: byn = 0.5; break;
-			case 4: byn = 1; break;
-			case 5: byn = 2; break;
+			case 4: byn = 1.0; break;
+			case 5: byn = 2.0; break;
 			case 6: printMainMenu(customerBalance);
 					byn = 0.0;
 					break;
-			default: byn = 0; break;
+			default: byn = 0.0; break;
 		}
 		
 		changeBalance(customerBalance, machineBalance, byn);
@@ -172,42 +175,46 @@ void progressBar() {
     cout << endl;
 }
 
-bool isCheckingPin() {
+void isCheckingPin() {
 	int attemptPin = 3;
-	printLogo();
-	cout << "1. Back to Main Menu" << endl;
-	cout << "2. Enter a PIN-code" << endl;
-	cout << "Please, make your choice and press the button ENTER: ";
-	int choice = inputNumber();
 	
-	switch (choice) {
-		case 1: return false;
-		case 2: break;
-		default: isCheckingPin();
-	}
-	
-	
+	printLogo();				
 	while (attemptPin > 0) {
+		int pin = inputPin(attemptPin);
 		
-		int pin = inputChoiceUser(attemptPin);
-		// check input value??
-		//if (pin == 1)
-		//	return false;
-		//else 
 		if (pin == PIN)
-			return true;
+			break;
 		else
-			cout << "PIN is wrong!" << endl;			
+			printUserMessage("PIN is wrong!");					
 		attemptPin--;		
 		if (attemptPin == 0)
 			blockProgram();
 	}	
 }
+	
+void printTemporaryPinMenu() {
+	cout << "1. Back to Main Menu" << endl;
+	cout << "2. Enter a PIN-code" << endl << endl;
+	cout << "Please, make your choice and press the button ENTER: ";
+}
 
-int inputChoiceUser(int attemptPin) {
-	int pin = 0;
+bool isTemporaryPinChoice() {
+	printLogo();
+	printTemporaryPinMenu();
+	int choice = inputNumber();
+	
+	switch (choice) {
+		case 1: return false;			 	
+		case 2: isCheckingPin();
+			 	return true;
+		default: isTemporaryPinChoice();
+	}
+}
+
+int inputPin(int attemptPin) {
+	int pin = 0, ch = 0;
 	string pass = "";
-	int ch = 0;
+	
 	cout << "Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
 	for (int i = 0; i < 4; i++) {
 		ch = _getch();
