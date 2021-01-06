@@ -2,7 +2,6 @@
 #include <Windows.h>
 #include <cstdlib>
 #include <conio.h>
-#include <string>
 
 #define PIN 6666
 #define COST_ESPRESSO 1
@@ -33,7 +32,7 @@ int  inputPin(int attemptPin);
 void blockProgram();
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup);
 void printServiceMenu(double machineBalance, int cup);
-void extraCup(int &cup);
+void addCup(int &cup);
 int  checkExtraCup();
 void nullingBalance(double &machineBalance, double &customerBalance);
 int  inputNumber();
@@ -44,43 +43,36 @@ int main()
 	double customerBalance = 0.0, machineBalance = 0.0;
 	string message = WELCOME_MESSAGE;
 				
-	while (true) {	
-		if (cup == 0 ) {
-			message = NO_CUPS_MESSAGE;
-		} 	
+	while (true) {		
 		printLogo();
-		printUserMessage(message);
-		message = WELCOME_MESSAGE;
-		if (cup == 0 ) {
+		if (cup == 0) {			
+			printUserMessage(NO_CUPS_MESSAGE);
 			printShortMainMenu(customerBalance);
 		} else {
+			printUserMessage(message);
 			printMainMenu(customerBalance);
 		}
+		message = WELCOME_MESSAGE;	
 		
 		int choiceUser = inputNumber();
 		
 		if (choiceUser == 1 and cup != 0) {
 			putMoney(customerBalance, machineBalance);
-		}
-		else if (choiceUser == 2 and cup != 0) {
+		} else if (choiceUser == 2 and cup != 0) {
 			if (isEnoughMoney(COST_ESPRESSO, customerBalance))
 				buyCoffee(customerBalance, COST_ESPRESSO, cup, message);
-			else message = ADD_MONEY_MESSAGE;
-		}
-		else if (choiceUser == 3 and cup != 0) {
+			else message = ADD_MONEY_MESSAGE;			
+		} else if (choiceUser == 3 and cup != 0) {
 			if (isEnoughMoney(COST_CAPPUCCINO, customerBalance))
 				buyCoffee(customerBalance, COST_CAPPUCCINO, cup, message);
 			else message = ADD_MONEY_MESSAGE;
-		}
-		else if (choiceUser == 4 and cup != 0) {
+		} else if (choiceUser == 4 and cup != 0) {
 			if (isEnoughMoney(COST_LATTE, customerBalance))
 				buyCoffee(customerBalance, COST_LATTE, cup, message);
 			else message = ADD_MONEY_MESSAGE;
-		}
-		else if (choiceUser == 5) {
-			if (isTemporaryPinChoice()) {
+		} else if (choiceUser == 5) {
+			if (isTemporaryPinChoice())
 				manageServiceMenu(customerBalance, machineBalance, cup);
-			}
 		}				
 	}  			
 	return 0;
@@ -142,11 +134,9 @@ void putMoney(double &customerBalance, double &machineBalance) {
 			case 4: byn = 1.0; break;
 			case 5: byn = 2.0; break;
 			case 6: printMainMenu(customerBalance);
-					byn = 0.0;
-					break;
+					byn = 0.0; break;
 			default: byn = 0.0; break;
-		}
-		
+		}		
 		changeBalance(customerBalance, machineBalance, byn);
 	}	
 }
@@ -168,12 +158,13 @@ void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &mes
 	cup--;
 	progressBar();
 	message = TAKE_COFFEE_MESSAGE;
+	//printUserMessage("Please take your coffee");
+//	Sleep(5000);
 }
 
 void progressBar() {
 	cout << endl << "Please wait, we are cooking the best coffee for your";
-	for (int i = 0; i <= 7; i++)
-    {
+	for (int i = 0; i <= 7; i++) {
         Sleep(777);
         cout << "." << flush;
     }
@@ -189,8 +180,7 @@ void isCheckingPin() {
 		
 		if (pin == PIN)
 			break;
-		else
-			printUserMessage("PIN is wrong!");					
+		else printUserMessage("PIN is wrong!");					
 		attemptPin--;		
 		if (attemptPin == 0)
 			blockProgram();
@@ -241,24 +231,23 @@ void blockProgram() {
 }
 
 void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup) {			
-	while (true) {		
+	int choiceService = 0;
+	
+	while (choiceService != 3) {		
 		printServiceMenu(machineBalance, cup);		
-		int choiceService = inputNumber();
+		choiceService = inputNumber();
 		
-		if (choiceService == 1) {
-			cout << endl;
-			printUserMessage("How many cups are you adding?");						
-			extraCup(cup);					
-		}
-		else if (choiceService == 2) {
-			cout << endl << machineBalance;
-			printUserMessage(" BYN were given away");
-			cout << endl;
-			Sleep(4000);			
-			nullingBalance(machineBalance, customerBalance);						
-		}
-		else if (choiceService == 3)
-			break;
+		switch (choiceService) {
+			case 1: cout << endl;
+					printUserMessage("How many cups are you adding?");						
+					addCup(cup); break;			 	
+			case 2: cout << endl << machineBalance;
+					printUserMessage(" BYN were given away");
+					cout << endl;
+					Sleep(4000);			
+					nullingBalance(machineBalance, customerBalance); break;
+//			case 3: break;
+		}		
 	}	
 }
 
@@ -276,8 +265,7 @@ int checkExtraCup() {
 			cout << "Invalid data! Please correct number of cups and try again" << endl;
 		    printUserMessage("How many cups are you adding?");
 		} else break;		
-	}
-	
+	}	
 	return extraCup;	
 }
 
