@@ -3,15 +3,15 @@
 #include <cstdlib>
 #include <conio.h>
 
-#define PIN 6666
-#define COST_ESPRESSO 1
+#define PIN             7712
+#define COST_ESPRESSO   1
 #define COST_CAPPUCCINO 1.5
-#define COST_LATTE 1.5
+#define COST_LATTE      1.5
 
-#define WELCOME_MESSAGE "Try the best coffee"
-#define ADD_MONEY_MESSAGE "Please deposit more money"
+#define WELCOME_MESSAGE     "Try the best coffee"
+#define ADD_MONEY_MESSAGE   "Please deposit more money"
 #define TAKE_COFFEE_MESSAGE "Please take your coffee"
-#define NO_CUPS_MESSAGE "We are very sorry but there are no cups left"
+#define NO_CUPS_MESSAGE     "We are very sorry but there are no cups left"
 
 using namespace std;
 
@@ -239,7 +239,6 @@ void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup
 		
 		switch (choiceService) {
 			case 1: cout << endl;
-					printUserMessage("How many cups are you adding?");						
 					addCup(cup); break;			 	
 			case 2: cout << endl << machineBalance;
 					printUserMessage(" BYN were given away");
@@ -251,7 +250,7 @@ void manageServiceMenu(double &customerBalance, double &machineBalance, int &cup
 	}	
 }
 
-void extraCup(int &cup) {
+void addCup(int &cup) {
 	int extraCup = checkExtraCup();
 	cup += extraCup;
 }
@@ -260,11 +259,12 @@ int checkExtraCup() {
 	int extraCup = 0;
 	
 	while (true) {
-        extraCup = inputNumber();
-		if (extraCup < 1) {
-			cout << "Invalid data! Please correct number of cups and try again" << endl;
-		    printUserMessage("How many cups are you adding?");
-		} else break;		
+		printUserMessage("How many cups are you adding?");
+        extraCup = inputNumber();        
+        
+		if (extraCup < 1)
+			cout << "Invalid data! Please correct number of cups and try again" << endl;		    
+		else break;		
 	}	
 	return extraCup;	
 }
