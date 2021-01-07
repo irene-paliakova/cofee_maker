@@ -7,7 +7,7 @@
 #define COST_ESPRESSO   1
 #define COST_CAPPUCCINO 1.5
 #define COST_LATTE      1.5
-
+#define GREEN   "\033[32m"
 #define WELCOME_MESSAGE     "* YOU + Me + Coffee = HAPPY!  *"
 #define ADD_MONEY_MESSAGE   "* Please, deposit more money  *"
 #define TAKE_COFFEE_MESSAGE "* Please, take your coffee    *"
@@ -92,10 +92,10 @@ void printLogo() {
 	system("cls");
 	cout << "CoffeeShop Software v. 1.0" << endl << "Powered by Irene & Vital" << endl << endl;
 	cout << "*******************************" << endl;
-	cout << "*          CoffeeShop         *" << endl;
+	cout << GREEN << "*          CoffeeShop         *" << endl;
 	cout << "*              by             *" << endl;
-	cout << "*        EspressoBiancci      *" << endl;
-	cout << "*    Serve coffee since 1898  *" << endl;
+	cout << "*       EspressoBiancci       *" << endl;
+	cout << "*   Serve coffee since 1898   *" << endl;
 	cout << "*******************************" << endl << endl;
 }
 
@@ -247,7 +247,7 @@ int inputPin(int attemptPin) {
 	for (int i = 0; i < 4; i++) {
 		ch = _getch();
 		cout << "*";
-		pass = pass + (char)ch;
+		pass += (char)ch;
 	}
 	cout << endl;
 	Sleep(300);
