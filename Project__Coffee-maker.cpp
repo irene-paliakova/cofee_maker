@@ -89,7 +89,7 @@ void printLogo() {
 }
 
 void printUserMessage(string message) {
-	cout << message << endl;
+	cout << "  " << message << endl;
 }
 
 void printMainMenu(double customerBalance) {
@@ -175,8 +175,9 @@ void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &mes
 	cup--;
 	progressBar();
 	message = TAKE_COFFEE_MESSAGE;
-	//printUserMessage("Please take your coffee");
-//	Sleep(5000);
+	cout << endl;
+	printUserMessage("Here is the best Coffee in the city. Bon appetit!");
+	Sleep(3000);
 }
 
 void progressBar() {
@@ -245,8 +246,7 @@ int inputPin(int attemptPin) {
 }
 
 void blockProgram() {
-	cout << endl << "The machine is blocked" << endl;;
-	Sleep(300);
+	cout << endl << "The machine is blocked!" << endl << "Call to the service 102" << endl;
 	exit(-1);	
 }
 
@@ -300,7 +300,7 @@ void printServiceMenu(double machineBalance, int cup) {
 	cout << "*******************************" << endl << endl;
 	cout << "   Total balance:  " << machineBalance << " BYN" << endl;
 	cout << "  ---------------------------" << endl;
-	cout << "   Cups remaining: " << cup << endl << endl;
+	cout << "   Cups remaining: " << cup << " cups" << endl << endl;
 	cout << "*******************************" << endl;	
 	cout << "*  1. Add cups                *" << endl;
 	cout << "*  2. Withdraw proceeds       *" << endl;
