@@ -9,8 +9,8 @@
 #define COST_LATTE      1.5
 
 #define WELCOME_MESSAGE     "YOU + Me + Coffee = HAPPY!"
-#define ADD_MONEY_MESSAGE   "Please deposit more money"
-#define TAKE_COFFEE_MESSAGE "Please take your coffee"
+#define ADD_MONEY_MESSAGE   "Please, deposit more money"
+#define TAKE_COFFEE_MESSAGE "Please, take your coffee"
 #define NO_CUPS_MESSAGE     "We are very sorry, but there are no cups left"
 
 using namespace std;
@@ -64,8 +64,7 @@ int main()
 			else {
 				message = ADD_MONEY_MESSAGE;
 				putMoney(customerBalance, machineBalance, message);
-			}
-							
+			}							
 		} else if (choiceUser == 3 and cup != 0) {
 			if (isEnoughMoney(COST_CAPPUCCINO, customerBalance))
 				buyCoffee(customerBalance, COST_CAPPUCCINO, cup, message);
@@ -151,7 +150,7 @@ void putMoney(double &customerBalance, double &machineBalance, string &message) 
 	while (choiceUser != 6) {
 		printLogo();
 		printUserMessage(message);
-		printUserMessage("Pay attention that the coffee machine doesn't give a change");
+		printUserMessage("Pay attention, the coffee machine does NOT give a change");
 		printDepositMenu(customerBalance);
 		choiceUser = inputNumber();
 		
@@ -174,7 +173,6 @@ void changeBalance(double &customerBalance, double &machineBalance, double byn) 
 	customerBalance += byn;
 	machineBalance += byn;
 }
-
 
 bool isEnoughMoney(double coffeeCost, double customerBalance) {
 	if (coffeeCost > customerBalance) 
