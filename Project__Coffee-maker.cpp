@@ -19,7 +19,7 @@ void printLogo();
 void printMainMenu(double customerBalance);
 void printShortMainMenu(double customerBalance);
 void printDepositMenu(double customerBalance);
-void putMoney(double &customerBalance, double &machineBalance, string &message);
+void putMoney(double &customerBalance, double &machineBalance, string &message, int &cup);
 void changeBalance(double &customerBalance, double &machineBalance, double byn);
 bool isEnoughMoney(double coffeeCost, double customerBalance);
 void printUserMessage(string message);
@@ -50,6 +50,7 @@ int main()
 			printShortMainMenu(customerBalance);
 		} else {
 			printUserMessage(message);
+			printUserMessage("* To have a cup of coffee, first deposit enough money, then choose a coffee you like *");
 			printMainMenu(customerBalance);
 		}
 		message = WELCOME_MESSAGE;	
@@ -57,27 +58,27 @@ int main()
 		int choiceUser = inputNumber();
 		
 		if (choiceUser == 1 and cup != 0) {
-			putMoney(customerBalance, machineBalance, message);
+			putMoney(customerBalance, machineBalance, message, cup);
 		} else if (choiceUser == 2 and cup != 0) {
 			if (isEnoughMoney(COST_ESPRESSO, customerBalance))
 				buyCoffee(customerBalance, COST_ESPRESSO, cup, message);
 			else {
 				message = ADD_MONEY_MESSAGE;
-				putMoney(customerBalance, machineBalance, message);
+				putMoney(customerBalance, machineBalance, message, cup);
 			}							
 		} else if (choiceUser == 3 and cup != 0) {
 			if (isEnoughMoney(COST_CAPPUCCINO, customerBalance))
 				buyCoffee(customerBalance, COST_CAPPUCCINO, cup, message);
 			else {
 				message = ADD_MONEY_MESSAGE;
-				putMoney(customerBalance, machineBalance, message);
+				putMoney(customerBalance, machineBalance, message, cup);
 			}
 		} else if (choiceUser == 4 and cup != 0) {
 			if (isEnoughMoney(COST_LATTE, customerBalance))
 				buyCoffee(customerBalance, COST_LATTE, cup, message);
 			else {
 				message = ADD_MONEY_MESSAGE;
-				putMoney(customerBalance, machineBalance, message);
+				putMoney(customerBalance, machineBalance, message, cup);
 			}
 		} else if (choiceUser == 5) {
 			if (isTemporaryPinChoice())
@@ -94,6 +95,7 @@ void printLogo() {
 	cout << "*          CoffeeShop         *" << endl;
 	cout << "*              by             *" << endl;
 	cout << "*        EspressoBiancci      *" << endl;
+	cout << "*    Serve coffee since 1898  *" << endl;
 	cout << "*******************************" << endl << endl;
 }
 
@@ -143,7 +145,7 @@ void printDepositMenu(double customerBalance) {
 	cout << "* Please, make your choice and press the button ENTER: ";
 }
 
-void putMoney(double &customerBalance, double &machineBalance, string &message) {
+void putMoney(double &customerBalance, double &machineBalance, string &message, int &cup) {
 	double byn = 0.0;
 	int choiceUser = 0;
 	
@@ -151,6 +153,8 @@ void putMoney(double &customerBalance, double &machineBalance, string &message) 
 		printLogo();
 		printUserMessage(message);
 		printUserMessage("* Pay attention, the coffee machine does NOT give a change *");
+		if (cup == 1) 
+			printUserMessage("* Pay attention, 1 cup remaining *");
 		printDepositMenu(customerBalance);
 		choiceUser = inputNumber();
 		
