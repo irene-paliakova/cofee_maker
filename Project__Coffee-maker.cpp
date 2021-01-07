@@ -3,15 +3,24 @@
 #include <cstdlib>
 #include <conio.h>
 
-#define PIN             7712
-#define COST_ESPRESSO   1
-#define COST_CAPPUCCINO 1.5
-#define COST_LATTE      1.5
-#define GREEN   "\033[32m"
+#define PIN                 7712
+#define COST_ESPRESSO       1
+#define COST_CAPPUCCINO     1.5
+#define COST_LATTE          1.5
+
 #define WELCOME_MESSAGE     "* YOU + Me + Coffee = HAPPY!  *"
 #define ADD_MONEY_MESSAGE   "* Please, deposit more money  *"
 #define TAKE_COFFEE_MESSAGE "* Please, take your coffee    *"
 #define NO_CUPS_MESSAGE     "* We are very sorry, but there are no cups left *"
+
+#define RESET               "\033[0m"
+#define RED                 "\033[31m"
+#define GREEN               "\033[32m"      
+#define YELLOW              "\033[33m"      
+#define CYAN                "\033[36m"      
+#define MAGENTA             "\033[35m" 
+#define BOLDYELLOW          "\033[1m\033[33m"     
+#define BOLDBLUE            "\033[1m\033[34m"
 
 using namespace std;
 
@@ -90,59 +99,59 @@ int main()
 
 void printLogo() {
 	system("cls");
-	cout << "CoffeeShop Software v. 1.0" << endl << "Powered by Irene & Vital" << endl << endl;
+	cout << "CoffeeShop Software v. 1.0" << endl << "Powered by Irene & Vital" << BOLDBLUE << endl << endl;
 	cout << "*******************************" << endl;
-	cout << GREEN << "*          CoffeeShop         *" << endl;
+	cout << "*          CoffeeShop         *" << endl;
 	cout << "*              by             *" << endl;
 	cout << "*       EspressoBiancci       *" << endl;
 	cout << "*   Serve coffee since 1898   *" << endl;
-	cout << "*******************************" << endl << endl;
+	cout << "*******************************" << RESET << endl << endl;
 }
 
 void printUserMessage(string message) {
-	cout << message << endl;
+	cout << BOLDYELLOW << message << RESET << endl;
 }
 
 void printMainMenu(double customerBalance) {
-	cout << endl;
-	cout << "*******************************" << endl;	
-	cout << "   Balance:          " << customerBalance << " BYN" <<endl;
+	cout << BOLDBLUE << endl;
+	cout << "*******************************" << RESET << GREEN << endl;
+	cout << "   Balance:          " << customerBalance << " BYN" << BOLDBLUE << endl;
 	cout << "*******************************" << endl;
-	cout << "*  1. Deposit money           *" << endl;
+	cout << "*" << RESET << GREEN << "  1. Deposit money           " << BOLDBLUE << "*" << endl;
 	cout << "*                             *" << endl;
-	cout << "*  2. Espresso       1.0 BYN  *" << endl;	
-	cout << "*  3. Cappuccino     1.5 BYN  *" << endl;
-	cout << "*  4. Latte          1.5 BYN  *" << endl;	
+	cout << "*" << RESET << CYAN << "  2. Espresso       1.0 BYN " << BOLDBLUE << " *" << endl;	
+	cout << "*" << RESET << CYAN << "  3. Cappuccino     1.5 BYN " << BOLDBLUE << " *" << endl;
+	cout << "*" << RESET << CYAN << "  4. Latte          1.5 BYN " << BOLDBLUE << " *" << endl;	
 	cout << "*******************************" << endl;
-	cout << "*  5. Service                 *" << endl;
+	cout << "*" << RESET << YELLOW << "  5. Service                 " << BOLDBLUE << "*" << endl;
 	cout << "*******************************" << endl << endl;
-	cout << "* Please, make your choice and press the button ENTER: ";
+	cout << "*" << " Please, make your choice and press the button ENTER: " << RESET;
 }
 
 void printShortMainMenu(double customerBalance) {	
-	cout << endl;
+	cout << BOLDBLUE << endl;
+	cout << "*******************************" << RESET << GREEN << endl;
+	cout << "   Balance:          " << customerBalance << " BYN" << BOLDBLUE << endl;
 	cout << "*******************************" << endl;
-	cout << "   Balance:          " << customerBalance << " BYN" <<endl;
-	cout << "*******************************" << endl;
-	cout << "*  5. Service                 *" << endl;
+	cout << "*" << RESET << YELLOW << "  5. Service                 " << BOLDBLUE << "*" << endl;
 	cout << "*******************************" << endl << endl;
-	cout << "* Please, make your choice and press the button ENTER: ";
+	cout << "*" << " Please, make your choice and press the button ENTER: " << RESET;
 }
 
 void printDepositMenu(double customerBalance) {
-	cout << endl;
+	cout << BOLDBLUE << endl;
+	cout << "*******************************" << RESET << GREEN << endl;
+	cout << "   Balance: " << customerBalance << " BYN" << BOLDBLUE << endl;
 	cout << "*******************************" << endl;
-	cout << "   Balance: " << customerBalance << " BYN" << endl;
-	cout << "*******************************" << endl;
-	cout << "*  1. 10 coins                *" << endl;
-	cout << "*  2. 20 coins                *" << endl;
-	cout << "*  3. 50 coins                *" << endl;
-	cout << "*  4. 1  ruble                *" << endl;
-	cout << "*  5. 2  rubles               *" << endl;
+	cout << "*" << RESET << MAGENTA << "  1. 10 coins                " << BOLDBLUE << "*" << endl;
+	cout << "*" << RESET << MAGENTA << "  2. 20 coins                " << BOLDBLUE << "*" << endl;
+	cout << "*" << RESET << MAGENTA << "  3. 50 coins                " << BOLDBLUE << "*" << endl;
+	cout << "*" << RESET << MAGENTA << "  4. 1  ruble                " << BOLDBLUE << "*" << endl;
+	cout << "*" << RESET << MAGENTA << "  5. 2  rubles               " << BOLDBLUE << "*" << endl;
 	cout << "* --------------------------- *" << endl;
-	cout << "*  6. Back to main menu       *" << endl;
+	cout << "*" << RESET << RED << "  6. Back to main menu       " << BOLDBLUE << "*" << endl;
 	cout << "*******************************" << endl << endl;
-	cout << "* Please, make your choice and press the button ENTER: ";
+	cout << "*" << " Please, make your choice and press the button ENTER: " << RESET;
 }
 
 void putMoney(double &customerBalance, double &machineBalance, string &message, int &cup) {
@@ -193,12 +202,12 @@ void buyCoffee(double &customerBalance, double coffeeCost, int &cup, string &mes
 }
 
 void progressBar() {
-	cout << endl << "* Please wait, we are cooking the best coffee for you";
+	cout << endl << CYAN << "* Please wait, we are cooking the best coffee for you";
 	for (int i = 0; i <= 7; i++) {
         Sleep(777);
         cout << " *" << flush;
     }
-    cout << endl;
+    cout << RESET << endl;
 }
 
 void isCheckingPin() {
@@ -218,12 +227,12 @@ void isCheckingPin() {
 }
 	
 void printTemporaryPinMenu() {
-	cout << "*******************************" << endl;
-	cout << "*  1. Back to Main Menu       *" << endl;
+	cout << BOLDBLUE << "*******************************" << endl;
+	cout << "*" << RESET << RED << "  1. Back to Main Menu       " << BOLDBLUE << "*" << endl;
 	cout << "* --------------------------- *" << endl;
-	cout << "*  2. Enter a PIN-code        *" << endl;
+	cout << "*" << RESET << YELLOW << "  2. Enter a PIN-code        " << BOLDBLUE << "*" << endl;
 	cout << "*******************************" << endl << endl;
-	cout << "* Please, make your choice and press the button ENTER: ";
+	cout << "*" << " Please, make your choice and press the button ENTER: " << RESET;
 }
 
 bool isTemporaryPinChoice() {
@@ -243,13 +252,13 @@ int inputPin(int attemptPin) {
 	int pin = 0, ch = 0;
 	string pass = "";
 	
-	cout << endl << "* Please, input PIN (" << attemptPin << " attempt left) and press the button ENTER: ";
+	cout << endl << YELLOW << "* Please, input PIN (" << RED << attemptPin << RESET << YELLOW << " attempt left) and press the button ENTER: ";
 	for (int i = 0; i < 4; i++) {
 		ch = _getch();
 		cout << "*";
 		pass += (char)ch;
 	}
-	cout << endl;
+	cout << RESET << endl;
 	Sleep(300);
 		
 	pin = atoi(pass.c_str());
@@ -258,7 +267,7 @@ int inputPin(int attemptPin) {
 }
 
 void blockProgram() {
-	cout << endl << "* The machine is blocked! *" << endl << "* Call to the service 102 *" << endl;
+	cout << endl << RED << "* The machine is blocked! *" << endl << "* Call to the service 102 *" << RESET << endl;
 	exit(-1);	
 }
 
@@ -300,7 +309,7 @@ int checkExtraCup() {
         extraCup = inputNumber();        
         
 		if (extraCup < 1)
-			cout << endl << "* Invalid data! Please correct number of cups and try again *" << endl;		    
+			cout << endl << RED << "* Invalid data! Please correct number of cups and try again *" << RESET << endl;		    
 		else break;		
 	}	
 	return extraCup;	
@@ -313,24 +322,26 @@ void nullingBalance(double &machineBalance, double &customerBalance) {
 
 void printServiceMenu(double machineBalance, int cup) {
     printLogo();    
-	cout << "  Welcome to the Service Menu" << endl << endl;
-	cout << "*******************************" << endl << endl;
-	cout << "   Total balance:  " << machineBalance << " BYN" << endl;
-	cout << "  ---------------------------" << endl;
-	cout << "   Cups remaining: " << cup << " cups" << endl << endl;
+	cout << YELLOW << "  Welcome to the Service Menu" << BOLDBLUE << endl << endl;
+	cout << "*******************************" << RESET << GREEN << endl << endl;
+	cout << "   Total balance:  " << machineBalance << " BYN" << BOLDBLUE << endl;
+	cout << "  ---------------------------" << RESET << CYAN << endl;
+	cout << "   Cups remaining: " << cup << " cups" << BOLDBLUE << endl << endl;
 	cout << "*******************************" << endl;	
-	cout << "*  1. Add cups                *" << endl;
-	cout << "*  2. Withdraw proceeds       *" << endl;
+	cout << "*" << RESET << CYAN << "  1. Add cups                " << BOLDBLUE << "*" << endl;
+	cout << "*" << RESET << GREEN << "  2. Withdraw proceeds       " << BOLDBLUE << "*" << endl;
 	cout << "* --------------------------- *" << endl;
-	cout << "*  3. Back to Main Menu       *" << endl;
+	cout << "*" << RESET << RED << "  3. Back to Main Menu       " << BOLDBLUE << "*" << endl;
 	cout << "*******************************" << endl << endl;	
-	cout << "* Please, make your choice and press the button ENTER: ";
+	cout << "*" << " Please, make your choice and press the button ENTER: " << RESET;
 }
 
 int inputNumber() {
 	int number = 0;		
 	
+	cout << BOLDBLUE;
 	cin >> number;
+	cout << RESET;
 	
 	return number;
 }
