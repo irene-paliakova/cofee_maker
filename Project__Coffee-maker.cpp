@@ -19,7 +19,7 @@ void printLogo();
 void printMainMenu(double customerBalance);
 void printShortMainMenu(double customerBalance);
 void printDepositMenu(double customerBalance);
-void putMoney(double &customerBalance, double &machineBalance);
+void putMoney(double &customerBalance, double &machineBalance, string &message);
 void changeBalance(double &customerBalance, double &machineBalance, double byn);
 bool isEnoughMoney(double coffeeCost, double customerBalance);
 void printUserMessage(string message);
@@ -57,19 +57,29 @@ int main()
 		int choiceUser = inputNumber();
 		
 		if (choiceUser == 1 and cup != 0) {
-			putMoney(customerBalance, machineBalance);
+			putMoney(customerBalance, machineBalance, message);
 		} else if (choiceUser == 2 and cup != 0) {
 			if (isEnoughMoney(COST_ESPRESSO, customerBalance))
 				buyCoffee(customerBalance, COST_ESPRESSO, cup, message);
-			else message = ADD_MONEY_MESSAGE;			
+			else {
+				message = ADD_MONEY_MESSAGE;
+				putMoney(customerBalance, machineBalance, message);
+			}
+							
 		} else if (choiceUser == 3 and cup != 0) {
 			if (isEnoughMoney(COST_CAPPUCCINO, customerBalance))
 				buyCoffee(customerBalance, COST_CAPPUCCINO, cup, message);
-			else message = ADD_MONEY_MESSAGE;
+			else {
+				message = ADD_MONEY_MESSAGE;
+				putMoney(customerBalance, machineBalance, message);
+			}
 		} else if (choiceUser == 4 and cup != 0) {
 			if (isEnoughMoney(COST_LATTE, customerBalance))
 				buyCoffee(customerBalance, COST_LATTE, cup, message);
-			else message = ADD_MONEY_MESSAGE;
+			else {
+				message = ADD_MONEY_MESSAGE;
+				putMoney(customerBalance, machineBalance, message);
+			}
 		} else if (choiceUser == 5) {
 			if (isTemporaryPinChoice())
 				manageServiceMenu(customerBalance, machineBalance, cup);
@@ -134,13 +144,14 @@ void printDepositMenu(double customerBalance) {
 	cout << "Please, make your choice and press the button ENTER: ";
 }
 
-void putMoney(double &customerBalance, double &machineBalance) {
+void putMoney(double &customerBalance, double &machineBalance, string &message) {
 	double byn = 0.0;
 	int choiceUser = 0;
 	
 	while (choiceUser != 6) {
 		printLogo();
-		printUserMessage("Pay attention that the coffee machine doesn't give change");
+		printUserMessage(message);
+		printUserMessage("Pay attention that the coffee machine doesn't give a change");
 		printDepositMenu(customerBalance);
 		choiceUser = inputNumber();
 		
@@ -156,6 +167,7 @@ void putMoney(double &customerBalance, double &machineBalance) {
 		}		
 		changeBalance(customerBalance, machineBalance, byn);
 	}	
+	message = WELCOME_MESSAGE;
 }
 
 void changeBalance(double &customerBalance, double &machineBalance, double byn) {
